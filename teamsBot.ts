@@ -35,8 +35,7 @@ export class TeamsBot extends TeamsActivityHandler {
       // Trigger command by IM text
       switch (txt) {
         case "welcome": {
-          const card = AdaptiveCards.declareWithoutData(rawWelcomeCard).render();
-          await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+          await context.sendActivity("welcome HELLO to you!!");
           break;
         }
         case "learn": {
