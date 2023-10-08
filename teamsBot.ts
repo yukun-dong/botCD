@@ -36,6 +36,7 @@ export class TeamsBot extends TeamsActivityHandler {
       switch (txt) {
         case "welcome": {
           await context.sendActivity("welcome!!");
+          break;
         }
         case "learn": {
           this.likeCountObj.likeCount = 0;
