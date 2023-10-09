@@ -18,10 +18,12 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }} # set up AZURE_RBAC_CREDENTIALS secrets in your repository
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v2
       with:
-        app-name: bot8df93a
-        publish-profile: <publishData><publishProfile profileName="bot8df93a - Web Deploy" publishMethod="MSDeploy" publishUrl="bot8df93a.scm.azurewebsites.net:443" msdeploySite="bot8df93a" userName="$bot8df93a" userPWD="l8yQ27WrYtwJ0FH9KZzX2tME1BbfjStnDAseK0yWlNte009ons8qq3cATMYt" destinationAppUrl="https://bot8df93a.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="http://windows.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="bot8df93a - FTP" publishMethod="FTP" publishUrl="ftps://waws-prod-blu-473.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="bot8df93a\$bot8df93a" userPWD="l8yQ27WrYtwJ0FH9KZzX2tME1BbfjStnDAseK0yWlNte009ons8qq3cATMYt" destinationAppUrl="https://bot8df93a.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="http://windows.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="bot8df93a - Zip Deploy" publishMethod="ZipDeploy" publishUrl="bot8df93a.scm.azurewebsites.net:443" userName="$bot8df93a" userPWD="l8yQ27WrYtwJ0FH9KZzX2tME1BbfjStnDAseK0yWlNte009ons8qq3cATMYt" destinationAppUrl="https://bot8df93a.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="http://windows.azure.com" webSystem="WebSites"><databases /></publishProfile></publishData>
+        app-name: bot815fe
         package: .
