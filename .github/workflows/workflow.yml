@@ -21,7 +21,7 @@ jobs:
     - name: 'Login via Azure CLI'
       uses: azure/login@v1
       with:
-        creds: '{"appId": "43f41059-cf7c-479b-82b7-babe42ec9ffe","displayName": "yukuncd","password": "zMa8Q~yz_BitzNMgZ2HRHrVnm0V5Lf0kmCLcrdby","tenant": "72f988bf-86f1-41af-91ab-2d7cd011db47"}'
+        creds: ${{ secrets.AZURE_CREDENTIALS }} # set up AZURE_RBAC_CREDENTIALS secrets in your repository
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v2
       with:
