@@ -21,9 +21,10 @@ jobs:
     - name: 'Login via Azure CLI'
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }} # set up AZURE_RBAC_CREDENTIALS secrets in your repository
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
+        creds: ${{ secrets.AZURE_CREDENTIALS }} 
+
+    - name: 'Run Azure webapp deploy action using azure RBAC'
       uses: azure/webapps-deploy@v2
       with:
-        app-name: bote815fe
+        app-name: bot66c63c
         package: .
