@@ -10,7 +10,7 @@ jobs:
     - name: 'Checkout Github Action' 
       uses: actions/checkout@master
 
-    - name: Setup Node 10.x
+    - name: Setup Node 16.x
       uses: actions/setup-node@v1
       with:
         node-version: '16.x'
@@ -18,9 +18,10 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-    - name: 'zip artifact for deployment'
-      run: |
-        zip -r deploy.zip . --include 'node_modules/*' 'lib/*' 'web.config'
+
+    # - name: 'zip artifact for deployment'
+    #   run: |
+    #     zip -r deploy.zip . --include 'node_modules/*' 'lib/*' 'web.config'
 
     - name: 'Login via Azure CLI'
       uses: azure/login@v1
@@ -31,4 +32,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ vars.AZURE_WEBAPP_NAME }}
-        package: deploy.zip
+        package: .
