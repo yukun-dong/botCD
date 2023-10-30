@@ -35,7 +35,7 @@ export class TeamsBot extends TeamsActivityHandler {
       // Trigger command by IM text
       switch (txt) {
         case "welcome": {
-          await context.sendActivity("welcome from master!!");
+          await context.sendActivity("welcome from azdo");
           break;
         }
         case "learn": {
