@@ -41,5 +41,5 @@ steps:
     script: |
       npx teamsfx package --env ${TEAMSFX_ENV_NAME}
 
-- publish: $(System.DefaultWorkingDirectory)/appPackage/build/appPackage.${{TEAMSFX_ENV_NAME}}.zip
+- publish: $(System.DefaultWorkingDirectory)/appPackage/build/appPackage.$(TEAMSFX_ENV_NAME).zip
   artifact: appPackage
