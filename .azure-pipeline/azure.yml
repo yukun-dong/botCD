@@ -1,25 +1,45 @@
 trigger:
-  branches:
-    include:
-      - azdo
+- azdo
+
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  CI_ENABLED: 'true'
+  TEAMSFX_ENV_NAME: 'test'
+  TEAMSFX_CLI_VERSION: '2.*'
+
 steps:
+# Setup environment.
 - task: NodeTool@0
   inputs:
-    versionSpec: '16.x'
-  displayName: 'Install Node.js'
+    versionSpec: '18'
+    checkLatest: true
 
-- script: |
-    npm install
-    npm run build --if-present
-  displayName: 'npm install, build'
-
-
-- task: AzureWebApp@1
+- task: Bash@3
   inputs:
-    azureSubscription: $(connection_name)
-    appName: $(app_name)
-    package: '$(System.DefaultWorkingDirectory)/'
-  displayName: 'Deploy to Azure Web App'
+    targetType: 'inline'
+    script: |
+      set -evuxo pipefail
+      npm install @microsoft/teamsfx-cli@${TEAMSFX_CLI_VERSION}
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      npx teamsfx account login azure --service-principal --username $(AZURE_SERVICE_PRINCIPAL_NAME) --password $(AZURE_SERVICE_PRINCIPAL_PASSWORD) --tenant $(AZURE_TENANT_ID)
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      npx teamsfx deploy --env ${TEAMSFX_ENV_NAME}
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      npx teamsfx package --env ${TEAMSFX_ENV_NAME}
+
+- publish: $(System.DefaultWorkingDirectory)/appPackage/build/appPackage.${{TEAMSFX_ENV_NAME}}.zip
+  artifact: appPackage
